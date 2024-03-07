@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Profile,Post,Like
+from .models import Profile,Post,Like,Connection
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -41,3 +41,9 @@ class LikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Like
         fields = ['user', 'post', 'liked_at']
+
+
+class ConnectionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Connection
+        fields = ['id', 'sender', 'receiver', 'status', 'created_at']
