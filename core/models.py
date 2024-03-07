@@ -2,7 +2,7 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import slugify
-
+from django.db.models import UniqueConstraint
 
 
 def profile_image_upload_path(instance, filename):
@@ -33,6 +33,17 @@ class Post(models.Model):
     post_img=models.ImageField(upload_to=post_pic_image_upload_path, default='blank-postpic.png')
     caption = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+    likes = models.ManyToManyField(User, related_name='liked_posts', blank=True)
 
     def __str__(self):
         return f"Post by {self.author.username} at {self.created_at}"
+
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    liked_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        constraints = [
+            UniqueConstraint(fields=['user', 'post'], name='unique_like')
+        ]

@@ -1,4 +1,4 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
@@ -8,8 +8,8 @@ from rest_framework.permissions import IsAuthenticated
 from knox.views import LoginView as KnoxLoginView
 from knox.auth import TokenAuthentication
 from knox.models import AuthToken
-from .models import Profile,Post
-from .serializers import UserRegistrationSerializer, UserLoginSerializer,ProfileSerializer,PostSerializer
+from .models import Profile,Post,Like
+from .serializers import UserRegistrationSerializer, UserLoginSerializer,ProfileSerializer,PostSerializer,LikeSerializer
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -82,3 +82,34 @@ def getpost(request):
     serializer = PostSerializer(posts, many=True)
     # Return the serialized posts as a response
     return Response(serializer.data)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def like_post(request):
+    if request.method == 'POST':
+        post_id = request.data.get('post_id')  
+        try:
+            post = Post.objects.get(pk=post_id)
+            like, created = Like.objects.get_or_create(user=request.user, post=post)
+            if created:
+                return Response({'message': 'Post liked successfully'}, status=status.HTTP_201_CREATED)
+            else:
+                return Response({'message': 'You have already liked this post'}, status=status.HTTP_400_BAD_REQUEST)
+        except Post.DoesNotExist:
+            return Response({'error': 'Post not found'}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def unlike_post(request):
+    if request.method == 'POST':
+        post_id = request.data.get('post_id')
+        if not post_id:
+            return Response({'error': 'Post ID is required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+        try:
+            post = get_object_or_404(Post, pk=post_id)
+            like = Like.objects.get(user=request.user, post=post)
+            like.delete()
+            return Response({'message': 'Post unliked successfully'}, status=status.HTTP_200_OK)
+        except Like.DoesNotExist:
+            return Response({'error': 'You have not liked this post'}, status=status.HTTP_400_BAD_REQUEST)

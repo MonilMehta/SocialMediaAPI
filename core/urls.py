@@ -8,4 +8,6 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('createpost/', views.createpost, name='createpost'),
     path('getpost/', views.getpost, name='getpost'),
+    path('like/', views.like_post, name='like'),
+    path('unlike/', views.unlike_post, name='unlike'),
 ]

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Profile,Post
+from .models import Profile,Post,Like
 
 class UserRegistrationSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
@@ -23,6 +23,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         fields = ['user_bio', 'user_img', 'user_dob']
 
 class PostSerializer(serializers.ModelSerializer):
+    likes_count = serializers.SerializerMethodField()
     class Meta:
         model = Post
         exclude = ['author']  
@@ -33,3 +34,10 @@ class PostSerializer(serializers.ModelSerializer):
         validated_data['author'] = author
         post = Post.objects.create(**validated_data)
         return post
+    def get_likes_count(self, obj):
+        return Like.objects.filter(post=obj).count()
+
+class LikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Like
+        fields = ['user', 'post', 'liked_at']
