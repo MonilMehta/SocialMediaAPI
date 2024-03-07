@@ -6,19 +6,19 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="https://ibb.co/tzF2MHZ" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO1.png" alt="project-screenshot" width="100" height="50/">
 
-<img src="https://ibb.co/3ztFdcp" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO2.png" alt="project-screenshot" width="100" height="50/">
 
-<img src="https://ibb.co/ncf5qYz" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO3.png" alt="project-screenshot" width="100" height="50/">
 
-<img src="https://ibb.co/bmqCjxS" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO4.png" alt="project-screenshot" width="100" height="50/">
 
-<img src="https://ibb.co/FH6BgQG" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO5.png" alt="project-screenshot" width="100" height="50/">
 
-<img src="https://ibb.co/Dr8VvhL" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO6.png" alt="project-screenshot" width="100" height="50/">
 
-<img src="https://ibb.co/QXLX4Mn" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO7.png" alt="project-screenshot" width="100" height="50/">
 
   
   
