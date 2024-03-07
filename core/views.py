@@ -8,8 +8,8 @@ from rest_framework.permissions import IsAuthenticated
 from knox.views import LoginView as KnoxLoginView
 from knox.auth import TokenAuthentication
 from knox.models import AuthToken
-from .models import Profile
-from .serializers import UserRegistrationSerializer, UserLoginSerializer,ProfileSerializer
+from .models import Profile,Post
+from .serializers import UserRegistrationSerializer, UserLoginSerializer,ProfileSerializer,PostSerializer
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -61,3 +61,24 @@ def signout(request):
 class UserLoginAPIView(KnoxLoginView):
     permission_classes = [AllowAny]
     authentication_classes = [TokenAuthentication]
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createpost(request):
+    if request.method == 'POST':
+        serializer = PostSerializer(data=request.data, context={'request': request})  # Pass the request context
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Post created successfully'})
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getpost(request):
+    # Retrieve all posts authored by the current user
+    posts = Post.objects.filter(author=request.user)
+    # Serialize the posts
+    serializer = PostSerializer(posts, many=True)
+    # Return the serialized posts as a response
+    return Response(serializer.data)

@@ -25,12 +25,12 @@ class Profile(models.Model):
 
 
 def post_pic_image_upload_path(instance, filename):
-    return f"post_pic/{instance.user.username}/{filename}"
+    return f"post_pic/{filename}"
 
 class Post(models.Model):
     post_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
-    post_img=models.ImageField(upload_to=post_pic_image_upload_path, default='blank-profileimg.png')
+    post_img=models.ImageField(upload_to=post_pic_image_upload_path, default='blank-postpic.png')
     caption = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
