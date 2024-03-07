@@ -12,7 +12,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     user_bio = models.TextField(blank=True)
     user_img = models.ImageField(upload_to=profile_image_upload_path, default='blank-profileimg.png')
-    user_dob = models.DateField()
+    user_dob = models.DateField(null=True, blank=True)
     # slug = models.SlugField(unique=True, null=False)
 
     # def save(self, *args, **kwargs):

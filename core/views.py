@@ -1,12 +1,15 @@
+from django.shortcuts import redirect, render
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import login, logout,authenticate
+from rest_framework.permissions import IsAuthenticated
 from knox.views import LoginView as KnoxLoginView
 from knox.auth import TokenAuthentication
 from knox.models import AuthToken
-from .serializers import UserRegistrationSerializer, UserLoginSerializer
+from .models import Profile
+from .serializers import UserRegistrationSerializer, UserLoginSerializer,ProfileSerializer
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -16,8 +19,7 @@ def signup(request):
         if serializer.is_valid():
             user = serializer.save()
             login(request, user)
-            token = AuthToken.objects.create(user)[1]
-            return Response({'token': token}, status=status.HTTP_201_CREATED)
+            return Response({'message':'User created successfully','username': user.get_username()}, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
@@ -30,14 +32,30 @@ def signin(request):
             if user is not None:
                 login(request, user)
                 token = AuthToken.objects.create(user)[1]
-                return Response({'token': token}, status=status.HTTP_200_OK)
+                return Response({'username': user.get_username(), 'token': token}, status=status.HTTP_200_OK)
             else:
                 return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
         return Response({'error': 'Invalid data provided'}, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def profile(request):
+    user_profile = Profile.objects.get(user=request.user)
+
+    if request.method == 'POST':
+        serializer = ProfileSerializer(instance=user_profile, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response({'message': 'Profile updated successfully'})
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    serializer = ProfileSerializer(instance=user_profile)
+    return Response(serializer.data)
+    
 @api_view(['GET'])
 def signout(request):
     logout(request)
+    AuthToken.objects.filter(user=request.user).delete()
     return Response({'message': 'Logged out successfully'}, status=status.HTTP_200_OK)
 
 class UserLoginAPIView(KnoxLoginView):
