@@ -6,19 +6,19 @@
 
 <h2>Project Screenshots:</h2>
 
-<img src="./media/projectphotos/PO1.png" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO1.png" alt="project-screenshot" >
 
-<img src="./media/projectphotos/PO2.png" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO2.png" alt="project-screenshot" >
 
-<img src="./media/projectphotos/PO3.png" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO3.png" alt="project-screenshot" >
 
-<img src="./media/projectphotos/PO4.png" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO4.png" alt="project-screenshot" >
 
-<img src="./media/projectphotos/PO5.png" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO5.png" alt="project-screenshot" >
 
-<img src="./media/projectphotos/PO6.png" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO6.png" alt="project-screenshot" >
 
-<img src="./media/projectphotos/PO7.png" alt="project-screenshot" width="100" height="50/">
+<img src="./media/projectphotos/PO7.png" alt="project-screenshot" >
 
   
   
