@@ -5,19 +5,19 @@
 <p id="description">The Social Media Platform API is a Django-based RESTful API that provides functionality for users to register log in create posts like/unlike posts. It offers token-based authentication using Django Knox and allows users to interact with various features commonly found in social media platforms.</p>
 
 <h2>Project Screenshots:</h2>
-
+## Signup
 <img src="./media/projectphotos/PO1.png" alt="project-screenshot" >
-
+## Sign in
 <img src="./media/projectphotos/PO2.png" alt="project-screenshot" >
-
+##  Profile Updation
 <img src="./media/projectphotos/PO3.png" alt="project-screenshot" >
-
+##  View Profile
 <img src="./media/projectphotos/PO4.png" alt="project-screenshot" >
-
+##  Post Creation
 <img src="./media/projectphotos/PO5.png" alt="project-screenshot" >
-
+##  Like Functionality
 <img src="./media/projectphotos/PO6.png" alt="project-screenshot" >
-
+## Post Viewer
 <img src="./media/projectphotos/PO7.png" alt="project-screenshot" >
 
   
@@ -26,14 +26,14 @@
 
 Here're some of the project's best features:
 
-*   ##User Authentication and Profile Management:
+*   ## User Authentication and Profile Management:
     User registration with username password and email. 
     User login to obtain authentication tokens. 
     User profile management with additional information such as profile picture bio and date of birth.
-*   ##Post Creation and Retrieval 
+*   ## Post Creation and Retrieval 
     Authenticated users can create posts with images and captions. 
     Retrieval of posts including the author's information.
-*   ##Like and Unlike Posts 
+*   ## Like and Unlike Posts 
     Users can like and unlike posts. 
     Ensures that users can only like or unlike a post once.
 
@@ -91,4 +91,4 @@ Technologies used in the project:
 *   Django
 *   DjangoRestFramework
 
-<h2>💖Like my work?</h2>
+<h2>💖Like my work? Star this repository</h2>
